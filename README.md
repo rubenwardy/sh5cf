@@ -9,6 +9,10 @@ Created by rubenwardy.
 
 Please tell me if you use these. I'd like to know. (Not a legal requirement, though.)
 
+```html
+<script src="https://rubenwardy.github.io/sh5cf/scripts/engine.js">
+```
+
 Example
 -------
 
