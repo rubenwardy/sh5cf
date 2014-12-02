@@ -10,13 +10,14 @@ var engine = {
 		rtime: 0,
 		utime: 0,
 		last_tick: 0,
-		target: 65,		
+		target: 65,
 		fpses: []
 	},
 	keys: [],
 	mouse: {x: 0, y: 0},
 	mousedown: false,
-	labely: 0
+	labely: 0,
+	toggle: false
 };
 
 function assert(condition, message) {
@@ -64,10 +65,10 @@ function dialog_content(){
 }
 
 // Start
-engine.init = function() {	
-	engine.ce = document.getElementById("canvas");
-	engine.c = engine.ce.getContext("2d");
-	engine.c.font = "12px Arial";
+engine.init = function() {
+	engine.ce       = document.getElementById("canvas");
+	engine.c        = engine.ce.getContext("2d");
+	engine.c.font   = "12px Arial";
 	engine.clear_canvas(engine.ce, engine.c);
 	close_dialog();
 	
@@ -101,6 +102,16 @@ engine.init = function() {
 		engine.mousedown = false;
 		if (engine.onMouseUp)
 			engine.onMouseUp(e);
+	}, false);
+	engine.ce.addEventListener('mousedown', function(e){
+		engine.canvasmousedown = true;
+		if (engine.onCanvasMouseDown)
+			engine.onCanvasMouseDown(e);
+	}, false);
+	engine.ce.addEventListener('mouseup', function(e){
+		engine.canvasmousedown = false;
+		if (engine.onCanvasMouseUp)
+			engine.onCanvasMouseUp(e);
 	}, false);
 	
 	engine.fps.last_tick = new Date().getTime();
@@ -163,6 +174,12 @@ engine.draw_fps = function(color) {
 }
 
 engine.tick = function(){
+	if (engine.skipEOT && engine.skipEOT()) {
+		engine.toggle = !engine.toggle;
+		if (engine.toggle)
+			return;
+	}
+
 	engine.clear_canvas(engine.ce, engine.c);
 	engine.reset_labels();
 	
