@@ -17,17 +17,18 @@ Example
 -------
 
 ```javascript
+var game = {};
+// define game functions and classes
+
+//
+// Initialise Game
+//
 function init()
 {
-	// init
-	game.map = getScene("scene1");
-	$(".draggable").draggable();
+	game.map = game.getScene("scene1");
 	engine.onKeyUp = function(e) {
 		if (e.keyCode == 113) {
 			$("#debug").toggle();
-		} else if (e.keyCode == 115) {
-			debug_draw_collide = !debug_draw_collide;
-			e.preventDefault();
 		}
 	};
 }
@@ -60,8 +61,6 @@ function tick(ce, c, dtime)
 				var img = $(item.img)[0];
 				var dpos = pxToScr({x: item.x, y: item.y});
 				c.drawImage(img, dpos.x, dpos.y);
-			} else {
-				throw("Unknown draw parameter at " + i + " in scene " + game.map.name + " specified as " + item.img);
 			}
 		} else {
 			var dpos = pxToScr({x: item.x, y: item.y});
