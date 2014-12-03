@@ -20,6 +20,8 @@ Example
 var game = {};
 // define game functions and classes
 
+
+
 //
 // Initialise Game
 //
@@ -33,6 +35,10 @@ function init()
 	};
 }
 
+
+//
+// Tick: update world state, draw world
+//
 function tick(ce, c, dtime)
 {
 	// Do movement
